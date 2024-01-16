@@ -3,3 +3,39 @@ canvas {
   top: 0;
   left: 0;
 }
+
+main {
+  position: absolute;
+  width: 110vw;
+  color: white;
+  z-index: 99;
+  width: 100%;
+  margin: 0px auto;
+  padding: 120px 0px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+header {
+  grid-column: 2 / span 5;
+
+  background: rgba(128, 128, 128, 0.573);
+  font-size: 2rem;
+}
+
+section {
+  grid-column: 2/8;
+  padding: 1rem;
+  background: rgba(128, 128, 128, 0.573);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+blockquote {
+  margin: 0;
+  padding: 0;
+  grid-column: 2 / span 9;
+  margin-bottom: 100px;
+}

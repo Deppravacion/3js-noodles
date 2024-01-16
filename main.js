@@ -32,7 +32,7 @@ const torusTextured = new THREE.Mesh(
 scene.add(torusTextured);
 
 const torus = new THREE.Mesh(geometry, material);
-const tmoneyTexture = new THREE.TextureLoader().load("tmoney.jpg");
+const tmoneyTexture = new THREE.TextureLoader().load("snowmachineWP.JPG");
 const tMoney = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
   new THREE.MeshBasicMaterial({ map: tmoneyTexture })
@@ -55,6 +55,37 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 scene.add(pointLight, ambientLight);
 
+const moonTexture = new THREE.TextureLoader().load("surface.jpg");
+const normalTexture = new THREE.TextureLoader().load("surfaceTexture.jpg");
+
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+    normalMap: normalTexture,
+  })
+);
+
+moon.position.z = 30;
+moon.position.setX(-10);
+
+scene.add(moon);
+
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
+
+  tMoney.rotation.x += 0.007;
+  tMoney.rotation.y += 0.002;
+  // tMoney.rotation.z += 0.01;
+  console.log("moving camera");
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.position.y = t * -0.0002;
+}
+
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
   const material = new THREE.MeshStandardMaterial({
@@ -67,6 +98,8 @@ function addStar() {
   star.position.set(x, y, z);
   scene.add(star);
 }
+
+document.body.onscroll = moveCamera;
 
 Array(269).fill().forEach(addStar);
 
@@ -81,9 +114,6 @@ function animate() {
   torusTextured.rotation.x += 0.01;
   torusTextured.rotation.y += 0.005;
   torusTextured.rotation.z += 0.01;
-  tMoney.rotation.x += 0.007;
-  tMoney.rotation.y += 0.002;
-  tMoney.rotation.z += 0.01;
 
   controls.update();
   renderer.render(scene, camera);
